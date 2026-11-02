@@ -14,6 +14,7 @@ import {
   Edit,
   ImageField,
   ImageInput,
+  LinkBase,
   List,
   NumberField,
   NumberInput,
@@ -27,7 +28,6 @@ import {
   TextInput,
   useListContext,
 } from "react-admin";
-import { Link } from "react-router-dom";
 
 const stateChoices = [
   { id: "DRAFT", name: "Draft" },
@@ -58,7 +58,7 @@ const BulletinForm = () => (
       validate={[required()]}
     />
     <ImageField source="imageUrl" label="Current image" />
-    <ImageInput source="image" label="Upload image" accept="image/*">
+    <ImageInput source="image" label="Upload image" accept={{ "image/*": [] }}>
       <ImageField source="src" title="title" />
     </ImageInput>
   </SimpleForm>
@@ -123,7 +123,7 @@ const BulletinGrid = () => {
         >
           {record.imageUrl && (
             <Box
-              component={Link}
+              component={LinkBase}
               to={`/bulletins/${record.id}/show`}
               sx={{ display: "block", lineHeight: 0 }}
             >
@@ -162,14 +162,14 @@ const BulletinGrid = () => {
           </CardContent>
           <CardActions>
             <Button
-              component={Link}
+              component={LinkBase}
               to={`/bulletins/${record.id}/show`}
               size="small"
             >
               View
             </Button>
             <Button
-              component={Link}
+              component={LinkBase}
               to={`/bulletins/${record.id}`}
               size="small"
             >

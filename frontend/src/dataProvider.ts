@@ -189,7 +189,7 @@ export const dataProvider: DataProvider = {
   },
 
   getManyReference: async (resource, params) => {
-    const filter = { ...(params.filter ?? {}), [params.target]: params.id };
+    const filter = { ...params.filter, [params.target]: params.id };
     const query = buildQueryString({
       pagination: params.pagination,
       sort: params.sort,
