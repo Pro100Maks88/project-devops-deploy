@@ -87,7 +87,7 @@ const BulletinGrid = () => {
 
   if (isLoading) {
     return (
-      <Stack alignItems="center" mt={4}>
+      <Stack sx={{ alignItems: "center", mt: 4 }}>
         <CircularProgress />
       </Stack>
     );
