@@ -133,7 +133,7 @@ const BulletinGrid = () => {
             <Typography variant="caption" color="text.secondary">
               State: {record.state}
             </Typography>
-            <Typography variant="caption" color="text.secondary" display="block">
+            <Typography variant="caption" color="text.secondary" sx={{ display: "block" }}>
               Contact: {record.contact}
             </Typography>
           </CardContent>

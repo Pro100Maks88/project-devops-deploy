@@ -66,8 +66,9 @@ const extractTotal = (payload: unknown, fallback: number) => {
   return fallback;
 };
 
-const readPagePayload = (payload: unknown): { data: JsonRecord[]; total: number } => {
-  const data = extractCollection(payload);
+// Тип записи знает вызывающий react-admin, API отдаёт непроверенный JSON.
+const readPagePayload = <T>(payload: unknown): { data: T[]; total: number } => {
+  const data = extractCollection(payload) as T[];
   return { data, total: extractTotal(payload, data.length) };
 };
 
@@ -226,7 +227,9 @@ export const dataProvider: DataProvider = {
 
   delete: async (resource, params) => {
     await httpClient(getRecordUrl(resource, params.id), { method: "DELETE" });
-    return { data: params.previousData ?? { id: params.id } };
+    return {
+      data: params.previousData ?? ({ id: params.id } as NonNullable<typeof params.previousData>),
+    };
   },
 
   deleteMany: async (resource, params) => {
