@@ -14,6 +14,7 @@ import {
   Edit,
   ImageField,
   ImageInput,
+  LinkBase,
   List,
   NumberField,
   NumberInput,
@@ -27,7 +28,6 @@ import {
   TextInput,
   useListContext,
 } from "react-admin";
-import { Link } from "react-router-dom";
 
 const stateChoices = [
   { id: "DRAFT", name: "Draft" },
@@ -37,28 +37,12 @@ const stateChoices = [
 const BulletinForm = () => (
   <SimpleForm>
     <TextInput source="title" fullWidth validate={[required()]} />
-    <TextInput
-      source="description"
-      multiline
-      minRows={3}
-      fullWidth
-      validate={[required()]}
-    />
-    <SelectInput
-      source="state"
-      choices={stateChoices}
-      validate={[required()]}
-    />
+    <TextInput source="description" multiline minRows={3} fullWidth validate={[required()]} />
+    <SelectInput source="state" choices={stateChoices} validate={[required()]} />
     <TextInput source="contact" fullWidth validate={[required()]} />
-    <NumberInput
-      source="price"
-      label="Price"
-      min={0}
-      step={0.01}
-      validate={[required()]}
-    />
+    <NumberInput source="price" label="Price" min={0} step={0.01} validate={[required()]} />
     <ImageField source="imageUrl" label="Current image" />
-    <ImageInput source="image" label="Upload image" accept="image/*">
+    <ImageInput source="image" label="Upload image" accept={{ "image/*": [] }}>
       <ImageField source="src" title="title" />
     </ImageInput>
   </SimpleForm>
@@ -87,7 +71,7 @@ const BulletinGrid = () => {
 
   if (isLoading) {
     return (
-      <Stack alignItems="center" mt={4}>
+      <Stack sx={{ alignItems: "center", mt: 4 }}>
         <CircularProgress />
       </Stack>
     );
@@ -123,7 +107,7 @@ const BulletinGrid = () => {
         >
           {record.imageUrl && (
             <Box
-              component={Link}
+              component={LinkBase}
               to={`/bulletins/${record.id}/show`}
               sx={{ display: "block", lineHeight: 0 }}
             >
@@ -140,10 +124,7 @@ const BulletinGrid = () => {
               />
             </Box>
           )}
-          <CardHeader
-            title={record.title}
-            subheader={formatPrice(record.price)}
-          />
+          <CardHeader title={record.title} subheader={formatPrice(record.price)} />
           <CardContent sx={{ flexGrow: 1 }}>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
               {record.description?.slice(0, 140) ?? ""}{" "}
@@ -152,27 +133,15 @@ const BulletinGrid = () => {
             <Typography variant="caption" color="text.secondary">
               State: {record.state}
             </Typography>
-            <Typography
-              variant="caption"
-              color="text.secondary"
-              display="block"
-            >
+            <Typography variant="caption" color="text.secondary" sx={{ display: "block" }}>
               Contact: {record.contact}
             </Typography>
           </CardContent>
           <CardActions>
-            <Button
-              component={Link}
-              to={`/bulletins/${record.id}/show`}
-              size="small"
-            >
+            <Button component={LinkBase} to={`/bulletins/${record.id}/show`} size="small">
               View
             </Button>
-            <Button
-              component={Link}
-              to={`/bulletins/${record.id}`}
-              size="small"
-            >
+            <Button component={LinkBase} to={`/bulletins/${record.id}`} size="small">
               Edit
             </Button>
           </CardActions>
@@ -196,11 +165,7 @@ export const BulletinShow = () => (
       <TextField source="description" />
       <SelectField source="state" choices={stateChoices} />
       <TextField source="contact" />
-      <NumberField
-        source="price"
-        label="Price"
-        options={{ style: "currency", currency: "USD" }}
-      />
+      <NumberField source="price" label="Price" options={{ style: "currency", currency: "USD" }} />
       <ImageField source="imageUrl" label="Image" />
     </SimpleShowLayout>
   </Show>

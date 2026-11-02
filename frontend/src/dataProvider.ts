@@ -16,8 +16,7 @@ const httpClient = (url: string, options: fetchUtils.Options = {}) => {
 };
 
 const getCollectionUrl = (resource: string) => `${apiUrl}/${resource}`;
-const getRecordUrl = (resource: string, id: Identifier) =>
-  `${getCollectionUrl(resource)}/${id}`;
+const getRecordUrl = (resource: string, id: Identifier) => `${getCollectionUrl(resource)}/${id}`;
 
 type JsonRecord = Record<string, unknown>;
 type ImageFieldValue = { rawFile?: unknown };
@@ -36,9 +35,7 @@ const hasRawFile = (value: unknown): value is { rawFile: File } => {
 };
 
 const asRecord = (payload: unknown): Record<string, unknown> | null =>
-  typeof payload === "object" && payload !== null
-    ? (payload as Record<string, unknown>)
-    : null;
+  typeof payload === "object" && payload !== null ? (payload as Record<string, unknown>) : null;
 
 const extractCollection = (payload: unknown): JsonRecord[] => {
   if (Array.isArray(payload)) {
@@ -69,10 +66,9 @@ const extractTotal = (payload: unknown, fallback: number) => {
   return fallback;
 };
 
-const readPagePayload = (
-  payload: unknown,
-): { data: JsonRecord[]; total: number } => {
-  const data = extractCollection(payload);
+// Тип записи знает вызывающий react-admin, API отдаёт непроверенный JSON.
+const readPagePayload = <T>(payload: unknown): { data: T[]; total: number } => {
+  const data = extractCollection(payload) as T[];
   return { data, total: extractTotal(payload, data.length) };
 };
 
@@ -189,7 +185,7 @@ export const dataProvider: DataProvider = {
   },
 
   getManyReference: async (resource, params) => {
-    const filter = { ...(params.filter ?? {}), [params.target]: params.id };
+    const filter = { ...params.filter, [params.target]: params.id };
     const query = buildQueryString({
       pagination: params.pagination,
       sort: params.sort,
@@ -231,14 +227,14 @@ export const dataProvider: DataProvider = {
 
   delete: async (resource, params) => {
     await httpClient(getRecordUrl(resource, params.id), { method: "DELETE" });
-    return { data: params.previousData ?? { id: params.id } };
+    return {
+      data: params.previousData ?? ({ id: params.id } as NonNullable<typeof params.previousData>),
+    };
   },
 
   deleteMany: async (resource, params) => {
     await Promise.all(
-      params.ids.map((id) =>
-        httpClient(getRecordUrl(resource, id), { method: "DELETE" }),
-      ),
+      params.ids.map((id) => httpClient(getRecordUrl(resource, id), { method: "DELETE" })),
     );
     return { data: params.ids };
   },

@@ -1,10 +1,5 @@
 import { Admin, Resource } from "react-admin";
-import {
-  BulletinCreate,
-  BulletinEdit,
-  BulletinList,
-  BulletinShow,
-} from "./bulletins";
+import { BulletinCreate, BulletinEdit, BulletinList, BulletinShow } from "./bulletins";
 import { dataProvider } from "./dataProvider";
 import { Layout } from "./Layout";
 
