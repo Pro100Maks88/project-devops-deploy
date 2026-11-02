@@ -16,8 +16,7 @@ const httpClient = (url: string, options: fetchUtils.Options = {}) => {
 };
 
 const getCollectionUrl = (resource: string) => `${apiUrl}/${resource}`;
-const getRecordUrl = (resource: string, id: Identifier) =>
-  `${getCollectionUrl(resource)}/${id}`;
+const getRecordUrl = (resource: string, id: Identifier) => `${getCollectionUrl(resource)}/${id}`;
 
 type JsonRecord = Record<string, unknown>;
 type ImageFieldValue = { rawFile?: unknown };
@@ -36,9 +35,7 @@ const hasRawFile = (value: unknown): value is { rawFile: File } => {
 };
 
 const asRecord = (payload: unknown): Record<string, unknown> | null =>
-  typeof payload === "object" && payload !== null
-    ? (payload as Record<string, unknown>)
-    : null;
+  typeof payload === "object" && payload !== null ? (payload as Record<string, unknown>) : null;
 
 const extractCollection = (payload: unknown): JsonRecord[] => {
   if (Array.isArray(payload)) {
@@ -69,9 +66,7 @@ const extractTotal = (payload: unknown, fallback: number) => {
   return fallback;
 };
 
-const readPagePayload = (
-  payload: unknown,
-): { data: JsonRecord[]; total: number } => {
+const readPagePayload = (payload: unknown): { data: JsonRecord[]; total: number } => {
   const data = extractCollection(payload);
   return { data, total: extractTotal(payload, data.length) };
 };
@@ -236,9 +231,7 @@ export const dataProvider: DataProvider = {
 
   deleteMany: async (resource, params) => {
     await Promise.all(
-      params.ids.map((id) =>
-        httpClient(getRecordUrl(resource, id), { method: "DELETE" }),
-      ),
+      params.ids.map((id) => httpClient(getRecordUrl(resource, id), { method: "DELETE" })),
     );
     return { data: params.ids };
   },
