@@ -11,6 +11,21 @@ updates:
       all-npm-dependencies:
         patterns:
           - "*"
+    # react-admin задаёт MUI, React и React Router в peerDependencies. Мажор,
+    # который react-admin ещё не поддерживает, npm ставит второй копией рядом
+    # со старой, и админка падает при запуске. Мажоры этих пакетов поднимаются
+    # руками вместе с react-admin.
+    ignore:
+      - dependency-name: "@mui/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-router"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-router-dom"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "gradle"
     cooldown:
