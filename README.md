@@ -5,7 +5,7 @@ Bulletin board service.
 ---
 
 ## Форк
-This is a fork of the [`project-devops-deploy`](https://github.com/Hexlet-components/project-devops-deploy), created as part of the "Bulletin board" as
+This is a fork of the [`project-devops-deploy`](https://github.com/Hexlet-components/project-devops-deploy), created as part of the "Bulletin board"
 
 Добавлено:
 
