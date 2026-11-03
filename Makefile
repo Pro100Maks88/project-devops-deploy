@@ -25,3 +25,19 @@ lint-fix:
 	./gradlew spotlessApply
 
 .PHONY: build
+
+IMAGE = golovinmd/project-devops-deploy
+TAG = latest
+
+.PHONY: docker-build docker-run docker-push
+
+docker-build:
+	docker build -t $(IMAGE):$(TAG) .
+	docker tag $(IMAGE):$(TAG) $(IMAGE):v0.1.0
+
+docker-run:
+	docker run --rm -p 8080:8080 -p 9090:9090 $(IMAGE):$(TAG)
+
+docker-push:
+	docker push $(IMAGE):$(TAG)
+	docker push $(IMAGE):v0.1.0
