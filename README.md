@@ -5,7 +5,7 @@ Bulletin board service.
 ---
 
 ## Что добавлено в этот форк
-This is a fork of the [Hexlet `project-devops-deploy` template](https://github.com/Hexlet-components/project-devops-deploy),в рамках задания 
+This is a fork of the `project-devops-deploy` (https://github.com/Hexlet-components/project-devops-deploy),в рамках задания 
 «Доска объявлений (инфраструктура как код)». Добавлено:
 
 - **Многоэтапный Dockerfile**: сборка фронтенда React Admin, встраивание его в статику Spring Boot, сборка и тесты бэкенда, затем минимальный JRE-образ.
