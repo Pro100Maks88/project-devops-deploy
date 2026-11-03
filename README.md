@@ -2,28 +2,39 @@
 
 Bulletin board service.
 
-# Доска объявлений: готовый к деплою образ
+# Project DevOps Deploy
 
-Это форк шаблона Hexlet `project-devops-deploy` для задания «Доска объявлений (инфраструктура как код)». Здесь мы превратили проект в полностью автономный контейнер: фронтенд встроен в бэкенд, тесты проходят на этапе сборки, а рантайм — минимальный.
+Bulletin board service.
 
+Fork policy: this upstream repository is read-only. We do not review or merge pull requests and we do not accept infrastructure changes (Dockerfiles, Ansible roles, CI/CD workflows, etc.). To experiment or extend the project, fork it and work inside your own repository.
 
-## Что сделано в этом форке
+---
 
-- **Многоэтапная сборка в Dockerfile**: сначала собираем React Admin, кладём его в статику Spring Boot, затем собираем и тестируем бэкенд, и только потом упаковываем всё в лёгкий JRE-образ.
-- **Makefile с целями для CI/CD-стиля**: `docker-build`, `docker-run`, `docker-push` — чтобы сборка и запуск были предсказуемыми и воспроизводимыми.
-- **Профиль по умолчанию — dev**: используется H2 в памяти, данные инициализируются автоматически, Swagger и Actuator сразу доступны.
+## Что добавлено в этот форк
 
-**Образ в Docker Hub:** `golovinmd/project-devops-deploy`  
+Это форк шаблона Hexlet `project-devops-deploy` в рамках задания «Доска объявлений (инфраструктура как код)». В форк добавлено:
+
+- **Многоэтапный Dockerfile**: собирает фронтенд React Admin, встраивает его в статические ресурсы Spring Boot, собирает и тестирует бэкенд, затем упаковывает всё в минимальный JRE-образ.
+- **Makefile** с целями `docker-build`, `docker-run`, `docker-push` для сборки, запуска и публикации образа.
+- **Ожидаемый артефакт**: единый автономный Docker-образ с бэкендом Spring Boot (фронтенд React Admin отдаётся с `/`) и профилем `dev` по умолчанию (H2 в памяти, тестовые данные).
+
+**Опубликованный образ на Docker Hub:** `golovinmd/project-devops-deploy`  
 **Теги:** `latest` (актуальная сборка), `v0.1.0` (стабильная версия).
 
-
-## Быстрый старт
-
-Если хочешь быстро поднять приложение в контейнере, достаточно двух команд:
+### Сборка и запуск
 
 ```bash
+# Собрать образ локально
 make docker-build
+
+# или просто через docker
+docker build -t golovinmd/project-devops-deploy:latest .
+
+# Запустить контейнер
 make docker-run
+
+# или просто через docker
+docker run --rm -p 8080:8080 -p 9090:9090 golovinmd/project-devops-deploy:latest
 
 
 > **Fork policy**: this upstream repository is read-only. We do not review or merge pull requests and we do not accept infrastructure changes (Dockerfiles, Ansible roles, CI/CD workflows, etc.). To experiment or extend the project, fork it and work inside your own repository.
