@@ -2,6 +2,45 @@
 
 Bulletin board service.
 
+# Bulletin Board Service
+
+Доска объявлений с REST API (Spring Boot) и админ-панелью (React Admin).  
+Это форк проекта: все изменения (Docker, Makefile, README) хранятся только в этом репозитории. Пул-реквесты в upstream не создаются.
+
+## Стек
+- Backend: Spring Boot, Java 27, Gradle
+- Frontend: React Admin, Vite
+- База данных: H2 (dev), PostgreSQL (prod)
+- Контейнеризация: Docker (многоэтапная сборка)
+- Сборка и запуск: Makefile
+
+## Артефакт
+
+Собранный Docker-образ опубликован в Docker Hub:
+- Репозиторий: `golovinmd/project-devops-deploy`
+- Теги: `latest` (для быстрой проверки), `v0.1.0` (стабильная версия)
+- Состав: собранный jar-файл с упакованным фронтендом, минимальный JRE-рантайм (Alpine), настроенные профили и лимиты памяти JVM.
+- Тесты: выполняются на этапе сборки; если тесты падают — образ не формируется.
+
+---
+
+## Запуск в Docker
+
+### Вариант 1 — через Makefile (рекомендуется)
+
+```bash
+make docker-build
+make docker-run
+
+### Вариант 2 напрямую через Docker
+docker run --rm -p 8080:8080 -p 9090:9090 golovinmd/project-devops-deploy:latest
+
+После старта приложение доступно:
+
+API и Swagger UI: http://localhost:8080/swagger-ui/index.html
+Actuator (health, metrics): http://localhost:9090/actuator/health
+
+
 > **Fork policy**: this upstream repository is read-only. We do not review or merge pull requests and we do not accept infrastructure changes (Dockerfiles, Ansible roles, CI/CD workflows, etc.). To experiment or extend the project, fork it and work inside your own repository.
 
 The default `dev` profile uses an in-memory H2 database and seeds 10 sample bulletins through `DataInitializer`, so the API works immediately after startup.
