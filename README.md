@@ -2,6 +2,30 @@
 
 Bulletin board service.
 
+# Доска объявлений: готовый к деплою образ
+
+Это форк шаблона Hexlet `project-devops-deploy` для задания «Доска объявлений (инфраструктура как код)». Здесь мы превратили проект в полностью автономный контейнер: фронтенд встроен в бэкенд, тесты проходят на этапе сборки, а рантайм — минимальный.
+
+
+## Что сделано в этом форке
+
+- **Многоэтапная сборка в Dockerfile**: сначала собираем React Admin, кладём его в статику Spring Boot, затем собираем и тестируем бэкенд, и только потом упаковываем всё в лёгкий JRE-образ.
+- **Makefile с целями для CI/CD-стиля**: `docker-build`, `docker-run`, `docker-push` — чтобы сборка и запуск были предсказуемыми и воспроизводимыми.
+- **Профиль по умолчанию — dev**: используется H2 в памяти, данные инициализируются автоматически, Swagger и Actuator сразу доступны.
+
+**Образ в Docker Hub:** `golovinmd/project-devops-deploy`  
+**Теги:** `latest` (актуальная сборка), `v0.1.0` (стабильная версия).
+
+
+## Быстрый старт
+
+Если хочешь быстро поднять приложение в контейнере, достаточно двух команд:
+
+```bash
+make docker-build
+make docker-run
+
+
 > **Fork policy**: this upstream repository is read-only. We do not review or merge pull requests and we do not accept infrastructure changes (Dockerfiles, Ansible roles, CI/CD workflows, etc.). To experiment or extend the project, fork it and work inside your own repository.
 
 The default `dev` profile uses an in-memory H2 database and seeds 10 sample bulletins through `DataInitializer`, so the API works immediately after startup.
