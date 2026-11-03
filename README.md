@@ -14,7 +14,7 @@ This is a fork of the [Hexlet `project-devops-deploy`](https://github.com/Hexlet
 - **Ожидаемый артефакт**: единый автономный Docker-образ с бэкендом Spring Boot (фронтенд отдаётся с `/`) и профилем `dev` по умолчанию (H2 в памяти, тестовые данные).
 
 Published image on Docker Hub: **[`golovinmd/project-devops-deploy`](https://hub.docker.com/r/golovinmd/project-devops-deploy)**
-**Образ в Docker Hub: **[`golovinmd/project-devops-deploy`](https://hub.docker.com/r/golovinmd/project-devops-deploy)**
+**Образ в Docker Hub: **[`golovinmd/project-devops-deploy`](https://hub.docker.com/repositories/golovinmd)**
 **Теги:** `latest` (актуальная сборка), `v0.1.0` (стабильная версия).
 
 ### Сборка и запуск
