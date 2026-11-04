@@ -1,6 +1,7 @@
 # Project DevOps Deploy
 
-[![CI](https://github.com/golovinmd/project-devops-deploy/actions/workflows/ci.yml/badge.svg)](https://github.com/golovinmd/project-devops-deploy/actions/workflows/ci.yml)
+[![CI Status](https://github.com/Pro100Maks88/project-devops-deploy/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Pro100Maks88/project-devops-deploy/actions)
+
 
 Bulletin board service.
 
