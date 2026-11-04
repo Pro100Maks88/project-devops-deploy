@@ -1,6 +1,6 @@
 # Project DevOps Deploy
 
-[![CI Status](https://github.com/Pro100Maks88/project-devops-deploy/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Pro100Maks88/project-devops-deploy/actions)
+[![CI Status](https://img.shields.io/github/actions/workflow/status/Pro100Maks88/project-devops-deploy/ci.yml?label=CI&logo=github&style=flat-square&color=brightgreen)](https://github.com/Pro100Maks88/project-devops-deploy/actions)
 
 
 Bulletin board service.
